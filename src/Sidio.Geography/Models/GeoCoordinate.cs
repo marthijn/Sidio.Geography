@@ -42,6 +42,15 @@ public sealed record GeoCoordinate
     /// Calculates the distance to another geographical coordinate.
     /// </summary>
     /// <param name="target">The target coordinate.</param>
+    /// <param name="formula">The distance formula.</param>
     /// <returns>A <see cref="Distance"/>.</returns>
-    public Distance DistanceTo(GeoCoordinate target) => DistanceCalculator.Haversine(this, target);
+    public Distance DistanceTo(GeoCoordinate target, DistanceFormula formula = DistanceFormula.Haversine)
+    {
+        return formula switch
+        {
+            DistanceFormula.Haversine => DistanceCalculator.Haversine(this, target),
+            DistanceFormula.Vincenty => DistanceCalculator.Vincenty(this, target),
+            _ => throw new ArgumentOutOfRangeException(nameof(formula), formula, null)
+        };
+    }
 }
