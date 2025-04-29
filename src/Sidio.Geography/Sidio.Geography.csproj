@@ -13,7 +13,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Description></Description>
+        <Description>A lightweight C# library for calculating geographic distances between coordinates.</Description>
         <PackageTags>geography gps distance</PackageTags>
         <PackageReleaseNotes>https://github.com/marthijn/Sidio.Geography/releases</PackageReleaseNotes>
 
