@@ -12,7 +12,7 @@ A lightweight C# library for calculating geographic distances between coordinate
 var coordinate1 = new GeoCoordinate(lat1, lon1);
 var coordinate2 = new GeoCoordinate(lat2, lon2);
 
-// Haversine formula
+// Haversine formula (default)
 var distanceHaversine = coordinate1.DistanceTo(coordinate2);
 
 // Vincenty formula
