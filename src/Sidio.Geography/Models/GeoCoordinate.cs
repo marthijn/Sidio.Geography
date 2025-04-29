@@ -43,5 +43,5 @@ public sealed record GeoCoordinate
     /// </summary>
     /// <param name="target">The target coordinate.</param>
     /// <returns>A <see cref="Distance"/>.</returns>
-    public Distance DistanceTo(GeoCoordinate target) => DistanceCalculator.Calculate(this, target);
+    public Distance DistanceTo(GeoCoordinate target) => DistanceCalculator.Haversine(this, target);
 }

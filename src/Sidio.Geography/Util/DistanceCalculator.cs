@@ -7,7 +7,7 @@ internal static class DistanceCalculator
 {
     private const double EarthRadiusInMeters = 6371000;
 
-    public static Distance Calculate(GeoCoordinate coordinate1, GeoCoordinate coordinate2)
+    public static Distance Haversine(GeoCoordinate coordinate1, GeoCoordinate coordinate2)
     {
         var radiansLat1 = coordinate1.Latitude.ToRadians();
         var radiansLat2 = coordinate2.Latitude.ToRadians();
