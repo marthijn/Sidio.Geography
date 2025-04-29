@@ -40,7 +40,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\Sidio.Geography\Sidio.Geography.csproj" />
+      <ProjectReference Include="..\Sidio.Geography\Sidio.Geography.csproj" />
     </ItemGroup>
 
 </Project>
