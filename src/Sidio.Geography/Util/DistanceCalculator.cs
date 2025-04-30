@@ -30,7 +30,7 @@ internal static class DistanceCalculator
         //// https://en.wikipedia.org/wiki/Vincenty%27s_formulae
 
         const double a = 6378137; // length of semi-major axis of the ellipsoid (radius at equator) in meters. WGS-84
-        const double f = 1 / 298.257223563; // flattening of the ellipsoid. WSG-84
+        const double f = 1 / 298.257223563; // flattening of the ellipsoid. WGS-84
         const double b = (1 - f) * a; // length of semi-minor axis of the ellipsoid (radius at poles) in meters. WGS-84
 
         // latitude of the points
