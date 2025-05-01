@@ -23,10 +23,10 @@ public sealed record Distance
     /// <summary>
     /// Gets the distance in miles.
     /// </summary>
-    public double Miles => Meters / 1609.344;
+    public double ToMiles() => Meters / 1609.344;
 
     /// <summary>
     /// Gets the distance in nautical miles.
     /// </summary>
-    public double NauticalMiles => Meters / 1852;
+    public double ToNauticalMiles() => Meters / 1852;
 }
