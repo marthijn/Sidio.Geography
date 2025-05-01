@@ -5,6 +5,33 @@ namespace Sidio.Geography.Tests.Models;
 public sealed class DistanceTests
 {
     [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(double.NaN)]
+    public void Constructor_ReturnsInstance(double input)
+    {
+        // Act
+        var result = new Distance(input);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Meters.Should().Be(input);
+    }
+
+    [Fact]
+    public void Constructor_WhenMetersIsNegative_ThrowsArgumentOutOfRangeException()
+    {
+        // Arrange
+        const double NegativeMeters = -1;
+
+        // Act
+        Action act = () => _ = new Distance(NegativeMeters);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    [Theory]
     [InlineData(0, 0)]
     [InlineData(1, 0.000621371192237334)]
     [InlineData(1000, 0.621371192237334)]
