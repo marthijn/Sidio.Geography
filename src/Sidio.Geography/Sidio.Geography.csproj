@@ -16,7 +16,7 @@
         <Description>A lightweight C# library for calculating geographic distances between coordinates.</Description>
         <PackageTags>geography gps distance haversine vincenty</PackageTags>
         <PackageReleaseNotes>https://github.com/marthijn/Sidio.Geography/releases</PackageReleaseNotes>
-
+        <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <IncludeSymbols>true</IncludeSymbols>
@@ -31,6 +31,7 @@
     <ItemGroup>
         <None Include="..\..\LICENSE" Pack="true" PackagePath="\"/>
         <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+        <None Include="icon.png" Pack="true" PackagePath=""/>
     </ItemGroup>
 
     <ItemGroup>
