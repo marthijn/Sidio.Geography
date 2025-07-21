@@ -31,16 +31,16 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.2">
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.3">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Xunit"/>
-        <Using Include="AutoFixture"/>
-        <Using Include="AwesomeAssertions"/>
+        <Using Include="Xunit" />
+        <Using Include="AutoFixture" />
+        <Using Include="AwesomeAssertions" />
     </ItemGroup>
 
     <ItemGroup>
