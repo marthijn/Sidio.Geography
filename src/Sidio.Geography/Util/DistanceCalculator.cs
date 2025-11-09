@@ -14,9 +14,11 @@ internal static class DistanceCalculator
         var radiansLat = (coordinate2.Latitude - coordinate1.Latitude).ToRadians();
         var radiansLon = (coordinate2.Longitude - coordinate1.Longitude).ToRadians();
 
-        var a = Math.Sin(radiansLat / 2) * Math.Sin(radiansLat / 2) +
+        var sinHalfLat = Math.Sin(radiansLat / 2);
+        var sinHalfLon = Math.Sin(radiansLon / 2);
+        var a = sinHalfLat * sinHalfLat +
                    Math.Cos(radiansLat1) * Math.Cos(radiansLat2) *
-                   Math.Sin(radiansLon / 2) * Math.Sin(radiansLon / 2);
+                   sinHalfLon * sinHalfLon;
 
         var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
@@ -42,9 +44,7 @@ internal static class DistanceCalculator
         var U2 = Math.Atan((1 - f) * Math.Tan(φ2));
 
         // longitude of the points
-        var L1 = coordinate1.Longitude.ToRadians();
-        var L2 = coordinate2.Longitude.ToRadians();
-        var L = L2 - L1;
+        var L = coordinate2.Longitude.ToRadians() - coordinate1.Longitude.ToRadians();
 
         // calculations
         var cosU1 = Math.Cos(U1);
@@ -70,9 +70,9 @@ internal static class DistanceCalculator
             var sinλ = Math.Sin(λ);
             var cosλ = Math.Cos(λ);
 
-            sinσ = Math.Sqrt(
-                Math.Pow(cosU2 * sinλ, 2) +
-                Math.Pow(cosU1 * sinU2 - sinU1 * cosU2 * cosλ, 2));
+            var cosU2SinLambda = cosU2 * sinλ;
+            var term = cosU1 * sinU2 - sinU1 * cosU2 * cosλ;
+            sinσ = Math.Sqrt(cosU2SinLambda * cosU2SinLambda + term * term);
 
             if (sinσ == 0)
             {
@@ -83,7 +83,7 @@ internal static class DistanceCalculator
             σ = Math.Atan2(sinσ, cosσ);
 
             var sinα = (cosU1 * cosU2 * sinλ) / sinσ;
-            cosSqα = 1 - Math.Pow(sinα, 2);
+            cosSqα = 1 - sinα * sinα;
             cos2σm = cosσ - (2 * sinU1 * sinU2) / cosSqα;
 
             if (double.IsNaN(cos2σm))
@@ -94,7 +94,7 @@ internal static class DistanceCalculator
             var C = f / 16 * cosSqα * (4 + f * (4 - 3 * cosSqα));
             λp = λ;
             λ = L + (1 - C) * f * sinα *
-                (σ + C * sinσ * (cos2σm + C * cosσ * (-1 + 2 * Math.Pow(cos2σm, 2))));
+                (σ + C * sinσ * (cos2σm + C * cosσ * (-1 + 2 * cos2σm * cos2σm)));
         }
         while(Math.Abs(λ - λp) > DesiredAccuracy && ++i < MaxIteratons);
 
@@ -103,11 +103,13 @@ internal static class DistanceCalculator
             return new Distance(double.NaN);
         }
 
-        var uSq = cosSqα * (Math.Pow(a, 2) - Math.Pow(b, 2)) / Math.Pow(b, 2);
+        var uSq = cosSqα * (a * a - b * b) / (b * b);
         var A = 1 + (uSq / 16384) * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
         var B = (uSq / 1024) * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
-        var Δσ = B * sinσ * (cos2σm + (B / 4) * (cosσ * (-1 + 2 * Math.Pow(cos2σm, 2)) -
-            (B / 6) * cos2σm * (-3 + 4 * Math.Pow(sinσ, 2)) * (-3 + 4 * Math.Pow(cos2σm, 2))));
+        var cos2σmSq = cos2σm * cos2σm;
+        var sinσSq = sinσ * sinσ;
+        var Δσ = B * sinσ * (cos2σm + (B / 4) * (cosσ * (-1 + 2 * cos2σmSq) -
+            (B / 6) * cos2σm * (-3 + 4 * sinσSq) * (-3 + 4 * cos2σmSq)));
         var s = b * A * (σ - Δσ);
 
         return new Distance(s);
