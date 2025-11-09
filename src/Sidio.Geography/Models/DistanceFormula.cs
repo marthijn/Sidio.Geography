@@ -1,5 +1,8 @@
 ﻿namespace Sidio.Geography.Models;
 
+/// <summary>
+/// The formula used to calculate the distance between two geographic coordinates.
+/// </summary>
 public enum DistanceFormula
 {
     /// <summary>
